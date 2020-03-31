@@ -1,6 +1,5 @@
-package figi.spring.restfulwebservices.controllers;
+package figi.spring.restfulwebservices.helloworld;
 
-import figi.spring.restfulwebservices.domain.HelloWorldBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

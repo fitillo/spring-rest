@@ -1,4 +1,4 @@
-package figi.spring.restfulwebservices.domain;
+package figi.spring.restfulwebservices.helloworld;
 
 import lombok.*;
 
