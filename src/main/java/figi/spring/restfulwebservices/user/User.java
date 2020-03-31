@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class User extends BaseEntity {
 
     @NotBlank
-    @Size(min = 2, message = "Name should have at least 2 characters")
+    @Size(min = 2, message = "{user.name.validation}")
     private String name;
 
     @NotNull
