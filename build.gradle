@@ -33,7 +33,7 @@ dependencies {
 
     //MONITORING
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.data:spring-data-rest-hal-browser'
+    implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 
     //CONTENT NEGOTIATION
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
