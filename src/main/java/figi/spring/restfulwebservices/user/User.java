@@ -16,15 +16,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @Entity
+//@ApiModel(description = "User details")
 public class User extends BaseEntity {
 
     @NotBlank
     @Size(min = 2, message = "{user.name.validation}")
+    //@ApiModelProperty(notes = "Name should have at least 2 characters")
     private String name;
 
     @NotNull
     @Past(message = "{user.birthDate.validation}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@ApiModelProperty(notes = "Birthdate has to be a past date")
     private LocalDate birthDate;
 
     @Builder
