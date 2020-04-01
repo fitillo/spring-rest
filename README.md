@@ -1,1 +1,1 @@
-[![CircleCI](https://circleci.com/gh/fitillo/spring-microservices.svg?style=svg)](https://circleci.com/gh/fitillo/spring-microservices) [![codecov](https://codecov.io/gh/fitillo/spring-microservices/branch/master/graph/badge.svg)](https://codecov.io/gh/fitillo/spring-microservices)
+[![CircleCI](https://circleci.com/gh/fitillo/spring-rest.svg?style=svg)](https://circleci.com/gh/fitillo/spring-rest) [![codecov](https://codecov.io/gh/fitillo/spring-rest/branch/master/graph/badge.svg)](https://codecov.io/gh/fitillo/spring-rest)
