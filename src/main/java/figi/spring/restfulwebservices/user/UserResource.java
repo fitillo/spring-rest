@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -29,14 +30,14 @@ public class UserResource {
 
     @GetMapping("/{id}")
     public EntityModel<User> getUserById(@PathVariable Long id) {
-        User user = this.userDaoService.findById(id);
+        Optional<User> user = this.userDaoService.findById(id);
 
-        if (user == null) {
+        if (user.isEmpty()) {
             throw new UserNotFoundException("id - "+id);
         }
 
         //HATEOAS "all-users"
-        EntityModel<User> model = new EntityModel<>(user);
+        EntityModel<User> model = new EntityModel<>(user.get());
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getAllUsers());
         model.add(linkTo.withRel("all-users"));
 
@@ -44,7 +45,7 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = this.userDaoService.save(user);
 
         return ResponseEntity.created(ServletUriComponentsBuilder
@@ -59,5 +60,33 @@ public class UserResource {
         }
 
         //return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public List<Post> getAllUserPosts(@PathVariable Long id) {
+        Optional<User> user = this.userDaoService.findById(id);
+
+        if (user.isEmpty()) {
+            throw new UserNotFoundException("User with id - " + id);
+        }
+        return user.get().getPosts();
+    }
+
+    @PostMapping("/{id}/posts")
+    public ResponseEntity<Post> createUserPost(@PathVariable Long id, @Valid @RequestBody Post post) {
+        Optional<User> savedUser = this.userDaoService.findById(id);
+
+        if (savedUser.isEmpty()) {
+            throw new UserNotFoundException("User with id - " + id);
+        }
+
+        User user = savedUser.get();
+        Post savedPost = this.userDaoService.addPost(user, post);
+
+        this.userDaoService.save(user);
+
+        return ResponseEntity.created(ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedPost.getId()).toUri()).build();
     }
 }

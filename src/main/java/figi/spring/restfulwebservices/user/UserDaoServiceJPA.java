@@ -5,15 +5,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Profile("jpa")
 public class UserDaoServiceJPA implements UserDaoService {
 
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
 
-    public UserDaoServiceJPA(UserRepository userRepository) {
+    public UserDaoServiceJPA(UserRepository userRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     @Override
@@ -29,8 +32,8 @@ public class UserDaoServiceJPA implements UserDaoService {
     }
 
     @Override
-    public User findById(Long id) {
-        return this.userRepository.findById(id).orElse(null);
+    public Optional<User> findById(Long id) {
+        return this.userRepository.findById(id);
     }
 
     @Override
@@ -43,5 +46,11 @@ public class UserDaoServiceJPA implements UserDaoService {
         boolean exists = findById(id) != null;
         if (exists) this.userRepository.deleteById(id);
         return exists && (findById(id) == null);
+    }
+
+    @Override
+    public Post addPost(User user, Post post) {
+        post.setUser(user);
+        return postRepository.save(post);
     }
 }

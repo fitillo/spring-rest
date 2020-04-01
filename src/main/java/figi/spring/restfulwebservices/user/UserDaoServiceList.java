@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -29,8 +30,8 @@ public class UserDaoServiceList implements UserDaoService {
     }
 
     @Override
-    public User findById(Long id) {
-        return users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+    public Optional<User> findById(Long id) {
+        return users.stream().filter(user -> user.getId().equals(id)).findFirst();
     }
 
     @Override
@@ -41,5 +42,10 @@ public class UserDaoServiceList implements UserDaoService {
     @Override
     public boolean deleteById(Long id) {
         return users.removeIf(user -> user.getId().equals(id));
+    }
+
+    @Override
+    public Post addPost(User user, Post post) {
+        return null;
     }
 }

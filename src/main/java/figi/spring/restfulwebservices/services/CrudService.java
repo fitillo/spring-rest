@@ -1,6 +1,7 @@
 package figi.spring.restfulwebservices.services;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudService<T, ID> {
 
@@ -8,7 +9,7 @@ public interface CrudService<T, ID> {
 
     T save(T object);
 
-    T findById(ID id);
+    Optional<T> findById(ID id);
 
     void delete(T object);
 
