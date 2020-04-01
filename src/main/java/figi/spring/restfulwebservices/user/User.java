@@ -23,7 +23,7 @@ public class User extends BaseEntity {
     private String name;
 
     @NotNull
-    @Past(message = "Birthdate has to be a past date")
+    @Past(message = "{user.birthDate.validation}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
